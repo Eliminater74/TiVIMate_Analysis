@@ -1,6 +1,6 @@
 # TiViMate Decompiled Source Reference — Master Reference Catalog
 
-This master catalog serves as the absolute index for the complete technical reference library extracted from the decompiled **TiViMate** source code. It categorizes all **22 architectural analyses, guidelines, and reference reports** created for you, detailing exactly what is explained in **every section of each file** to ensure quick recall and implementation mapping.
+This master catalog serves as the absolute index for the complete technical reference library extracted from the decompiled **TiViMate** source code. It categorizes all **23 architectural analyses, guidelines, and reference reports** created for you, detailing exactly what is explained in **every section of each file** to ensure quick recall and implementation mapping.
 
 ---
 
@@ -16,7 +16,15 @@ This master catalog serves as the absolute index for the complete technical refe
     *   **Section 5: EPG Time Zone Offset Stacking**: Explains the triple timezone offset corrections (`tvg_shift` + `server_timezone` + user offsets).
     *   **Section 6: PureFusionIPTV Implementation Blueprints**: Provides complete Kotlin templates for the `EpgMemoryCache` singleton and custom `EpgCanvasView` rendering framework.
 
-### 2. Cold Start Engine & Boot Sequence
+### 2. Complete Startup Process & Chronological Lifecycle Deep Dive
+*   **File Path**: [tivimate_startup_process_deep_dive.md](file:///i:/GITHUB/Projects/TiViMate-Latest-decompiled/tivimate_startup_process_deep_dive.md)
+*   **Detailed Section Breakdown**:
+    *   **Section 1: Executive Summary & Architectural Philosophy**: Explains why TiViMate prioritizes video streaming above UI building and database queries to achieve sub-300ms boot times on 1GB RAM Firesticks, complete with a Mermaid Gantt execution timeline.
+    *   **Section 2: Chronological Startup Sequence & Exact Timings**: Breaks down the 5 phases of startup (0ms–15ms OS spawn & async PRAGMA WAL database pre-warming; 15ms–25ms intent interception & SharedPreferences primitive fetch; 25ms–180ms parallel execution split between pooled OkHttp socket connection/ExoPlayer 500ms buffering and direct-to-Canvas EPG grid inflation; 180ms–300ms first-frame hardware sync & shutter reveal; and 30s–60s post-boot deferred WorkManager sync execution).
+    *   **Section 3: Startup Comparison Matrix**: Side-by-side table comparing standard Android TV app approaches against TiViMate's decompiled architecture across 7 layers.
+    *   **Section 4: Summary Checklist**: Actionable architectural reference points for implementing zero-lag startup behavior.
+
+### 3. Cold Start Engine & Boot Sequence
 *   **File Path**: [tivimate_cold_start_engine_analysis.md](file:///i:/GITHUB/Projects/TiViMate-Latest-decompiled/tivimate_cold_start_engine_analysis.md)
 *   **Detailed Section Breakdown**:
     *   **Section 1: Cold Start Flow**: Outlines sub-300ms boot behaviors, instant stream playback recovery, and asynchronous UI populations.
@@ -24,7 +32,7 @@ This master catalog serves as the absolute index for the complete technical refe
     *   **Section 3: Boot Speed Secrets Brief**: Compares the standard Android TV boot bottlenecks to TiViMate's lightweight design solutions.
     *   **Section 4: Beta 10 Actionable Roadmaps**: Actionable low, medium, and high-risk performance recommendations.
 
-### 3. High-Speed Search Architecture
+### 4. High-Speed Search Architecture
 *   **File Path**: [tivimate_search_architecture_analysis.md](file:///i:/GITHUB/Projects/TiViMate-Latest-decompiled/tivimate_search_architecture_analysis.md)
 *   **Detailed Section Breakdown**:
     *   **Section 1: Search-as-you-Type Flow**: Outlines segmented results (Live, Movies, TV Shows) and instant remote key transitions.
