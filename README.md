@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/TiViMate-v5.2.0-blueviolet?style=for-the-badge&logo=android&logoColor=white" alt="TiViMate Version"/>
+  <img src="https://img.shields.io/badge/TiViMate-v5.3.3-blueviolet?style=for-the-badge&logo=android&logoColor=white" alt="TiViMate Version"/>
   <img src="https://img.shields.io/badge/Analysis-Deep_Dive-critical?style=for-the-badge&logo=bookstack&logoColor=white" alt="Analysis Type"/>
   <img src="https://img.shields.io/badge/Platform-Android_TV-green?style=for-the-badge&logo=androidtv&logoColor=white" alt="Platform"/>
 </p>
@@ -16,9 +16,9 @@
 
 ---
 
-# 📺 TiViMate v5.2.0 — Complete Decompiled Source Analysis
+# 📺 TiViMate v5.3.3 — Complete Decompiled Source Analysis
 
-> **The most comprehensive architectural deep-dive ever created for TiViMate IPTV Player.** Over **50 technical analysis documents** dissecting every system — from the sub-300ms cold start engine, to the EPG Canvas renderer, Stalker Portal emulation, PVR recording pipeline, and everything in between.
+> **The most comprehensive architectural deep-dive ever created for TiViMate IPTV Player.** Over **54 technical analysis documents** dissecting every system — from the sub-300ms cold start engine, to the EPG Canvas renderer, Stalker Portal emulation, PVR recording pipeline, and everything in between. **Updated for v5.3.3** with dual Room database (Room 2.7 + Room3 3.0), bundled SQLite, DataStore integration, and compileSdk 37.
 
 ---
 
@@ -26,26 +26,48 @@
 
 | Metric | Count |
 | :--- | :---: |
-| 📝 Analysis Documents (`.md`) | **52** |
-| ☕ Decompiled Java Source Files | **6,416** |
-| 📦 Source Packages | **783** |
-| 🎨 Resource Files (XML, drawables, etc.) | **1,587** |
-| 📁 Resource Directories | **143** |
-| 📐 Total Analysis Size | **~594 KB** |
-| 🎯 Target APK Version | **5.2.0 (build 5208)** |
+| 📝 Analysis Documents (`.md`) | **54** |
+| ☕ Decompiled Java Source Files | **6,548** |
+| 📦 Source Packages | **303** |
+| 🎨 Resource Files (XML, drawables, etc.) | **1,177** |
+| 📁 Resource Directories | **127** |
+| 📐 Total Analysis Size | **~653 KB** |
+| 🎯 Target APK Version | **5.3.3 (build 1000005332)** |
 | 📱 Min SDK | **23 (Android 6.0)** |
 | 🎯 Target SDK | **34 (Android 14)** |
+| 🏗️ Compile SDK | **37 (Android 17)** |
+
+---
+
+## 🆕 What Changed: v5.2.0 → v5.3.3
+
+| Area | v5.2.0 | v5.3.3 |
+| :--- | :--- | :--- |
+| App Version | 5.2.0 (build 5208) | **5.3.3 (build 1000005332)** |
+| Compile SDK | 34 | **37 (Android 17)** |
+| Source Files | 6,416 | **6,548 (+132)** |
+| Play Billing | 7.x | **9.1.0** |
+| AndroidX Core | 1.12.x | **1.19.0** |
+| Lifecycle | 2.7.x | **2.11.0** |
+| Room | 2.6.x | **2.7.0 + Room3 3.0.0-rc01** |
+| Coroutines | 1.7.x | **1.11.0** |
+| Material Design | 1.11.x | **1.14.0** |
+| DataStore | N/A | **1.1.7 (New!)** |
+| SQLite | Framework | **Bundled 2.7.0-rc01** |
+
+> 📦 See [`TIVIMATE_5.3.3_MODULES_AND_VERSIONS.md`](../TIVIMATE_5.3.3_MODULES_AND_VERSIONS.md) for the complete module & version catalog with 80+ libraries.
 
 ---
 
 ## 🗂️ Repository Structure
 
 ```
-TiVIMate_Analysis/
-├── 📝 *.md                    # 52 architectural analysis documents (this folder)
-├── 📁 sources/                # 6,416 decompiled Java source files across 783 packages
-├── 📁 resources/              # AndroidManifest.xml, layouts, drawables, strings, values
-└── 📁 docs/research/          # Additional research documents
+TiVIMate_Analysis-Src/
+├── 📝 TIVIMATE_5.3.3_MODULES_AND_VERSIONS.md  # Complete module & version catalog
+├── 📁 TiViMate-NFO/              # 53 architectural analysis documents
+│   └── 📝 *.md
+├── 📁 sources/                    # 6,548 decompiled Java source files across 303 packages
+└── 📁 resources/                  # AndroidManifest.xml, layouts, drawables, strings, values
 ```
 
 ---
@@ -186,6 +208,7 @@ TiVIMate_Analysis/
 
 | File | Description |
 | :--- | :--- |
+| [`tivimate_room3_bundled_sqlite_architecture.md`](tivimate_room3_bundled_sqlite_architecture.md) | **Room v2 + Room3 + Bundled SQLite coexistence.** Full bytecode and JNI architectural audit explaining why three database runtimes run simultaneously in v5.3.3 (`libsqliteJni.so`, `@FastNative` bindings, and dual Binder invalidation dispatch). |
 | [`tivimate_complete_database_schema_migrations.md`](tivimate_complete_database_schema_migrations.md) | **Complete SQLite schema reference.** Every table, column, and relationship in TiViMate's Room database — WAL config, migration framework, schema validation, and identity hash verification. |
 | [`tivimate_settings_backup_database_analysis.md`](tivimate_settings_backup_database_analysis.md) | **Settings, backup & database.** Settings precedence layers, backup/restore internals, and relational schema map for indexing massive IPTV datasets. |
 
@@ -250,9 +273,8 @@ TiVIMate_Analysis/
 
 | Directory | Contents |
 | :--- | :--- |
-| `sources/` | **6,416 decompiled `.java` files** across 783 packages — the complete TiViMate v5.2.0 decompiled source tree (JADX output). Obfuscated class names (e.g., `C4894.java`, `p411/`). |
-| `resources/` | **AndroidManifest.xml**, 1,587 resource files — layouts, drawables, strings (`values/`, `values-fr/`), styles, and XML configs. |
-| `docs/research/` | Extended research documents including the clean-room behavior inventory. |
+| `sources/` | **6,548 decompiled `.java` files** across 303 packages — the complete TiViMate v5.3.3 decompiled source tree (JADX output). Obfuscated class names (e.g., `C4894.java`, `p411/`). |
+| `resources/` | **AndroidManifest.xml**, 1,177 resource files — layouts, drawables, strings (`values/`, `values-fr/`), styles, and XML configs. |
 
 ---
 
@@ -287,6 +309,12 @@ No `RecyclerView` — TiViMate draws directly to Android `Canvas` using pixel-co
 <summary><strong>🎬 Visual Shutter Masking</strong></summary>
 
 A black overlay (`f14919`) fades in immediately on channel change, hiding decoder artifacts (P/B frame garbage). It fades out smoothly (150ms) only after `onRenderedFirstFrame()` confirms a clean keyframe is rendered.
+</details>
+
+<details>
+<summary><strong>🆕 v5.3.3: Dual Room Architecture</strong></summary>
+
+TiViMate 5.3.3 ships with **both** Room 2.7.0 and Room3 3.0.0-rc01, along with a bundled SQLite (`libsqliteJni.so`). This indicates an incremental migration to the new Room3 KMP architecture, ensuring consistent SQLite behavior across all Android versions regardless of the device's built-in SQLite version.
 </details>
 
 ---
